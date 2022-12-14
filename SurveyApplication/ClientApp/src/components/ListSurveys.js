@@ -9,12 +9,13 @@ export class ListSurveys extends Component {
         super(props);
         this.state = {
             surveys: [],
-            surveysToExport: "data1,data2,data3\nfoo,bar,baz\nhello,world,!"
+            surveysToExport: ""
         };
     }
    
     componentDidMount() {
         this.getData();
+        this.getDataToExport();
        }
 
     render() {
@@ -29,6 +30,12 @@ export class ListSurveys extends Component {
         this.setState({ surveys: data});
     }
 
+    async getDataToExport() {
+        const response = await fetch('api/response/12');
+        const data = await response.text();
+        this.setState({ surveysToExport: data });
+    }
+
 
     handleClick = () => {
         const fileData = encodeURIComponent(this.state.surveysToExport);
@@ -37,7 +44,6 @@ export class ListSurveys extends Component {
         link.setAttribute('download', 'my-csv-file.csv');
         link.click();
     };
-
 
     FormList = (surveys) => {
         return (

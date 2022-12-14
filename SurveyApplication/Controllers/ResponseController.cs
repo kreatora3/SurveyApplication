@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SurveyApplication.DAL.Models;
 using SurveyApplication.DAL.Repositories;
+using ServiceStack.Text;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,21 +21,18 @@ namespace SurveyApplication.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public IActionResult Get(int id)
+        public ActionResult<string> Get(int id)
         {
             var list = repository.Get();
-            return Ok(list);
+            var result = CsvSerializer.SerializeToCsv<FormResponse>(list);
+            return result;
         }
 
         [HttpPost("{id:int}")]
         public ActionResult<FormResponse> Post(int id, [FromBody] FormResponse response)
         {
-
-
-            // var rm = new FormResponse(){ Age= 15, Email = "dadaa@adada", FirstName ="Ivan", LastName="T", SurveyId=12};
             repository.Add(response);
-
-            return Ok();
+            return CreatedAtAction("Get", new { id = response.SurveyId }, response);
         }
     }
 }
