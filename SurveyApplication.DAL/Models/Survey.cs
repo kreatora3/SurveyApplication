@@ -1,5 +1,4 @@
 ﻿
-
 namespace SurveyApplication.DAL.Models
 {
     public class Survey

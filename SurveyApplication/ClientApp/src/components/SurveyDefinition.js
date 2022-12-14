@@ -7,7 +7,6 @@ export class SurveyDefinition extends Component {
         super(props);
         this.state = {
             definitions: [],
-            //text: ' '
         };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -17,8 +16,8 @@ export class SurveyDefinition extends Component {
     }
 
     render() {
-        return (
-            this.SurveyFormDefinition(this.state.definitions)
+        return (            
+          this.SurveyFormDefinition(this.state.definitions)
         );
     }
 
@@ -34,6 +33,7 @@ export class SurveyDefinition extends Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
+                surveyId: event.target.id,
                 firstName: formData.get("firstName"),
                 lastName: formData.get("lastName"),
                 email: formData.get("email"),
@@ -42,21 +42,22 @@ export class SurveyDefinition extends Component {
         };
 
         // Make a POST request to the API with the formdata
-        fetch('api/response/1', options);
+        fetch('api/response/' + event.target.id, options);
         this.props.history.push('/');
     };
 
     async getData() {
         const someID = 1;
-        const response = await fetch('api/surveys/' + someID);
-        const data = await response.json();
+        const response =  await fetch('api/surveys/' + someID);
+        const data =  await response.json();
         this.setState({ definitions: data });
     }
 
     SurveyFormDefinition = (form) => {
         return (
-            //FormDefinition(this.state.definitions) 
-            <form onSubmit={this.handleSubmit} >
+            <form id={form.id} onSubmit={this.handleSubmit} >
+                <h1>{form.name}</h1>
+                <p dangerouslySetInnerHTML={{ __html: form.description }} />
                 <div class="input-group mb-3 w-25">
                     {form.properties &&
                         Object.keys(form.properties).map((property) => {

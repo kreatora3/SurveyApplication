@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,7 +27,7 @@ namespace SurveyApplication
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddNewtonsoftJson();
             services.AddScoped<ISurveyRepository, SurveyRepository>();
             services.AddScoped<IResponseRepository, ResponseRepository>();
 

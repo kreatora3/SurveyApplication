@@ -1,11 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Mvc;
+using ServiceStack.Text;
 using SurveyApplication.DAL.Models;
 using SurveyApplication.DAL.Repositories;
-using ServiceStack.Text;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SurveyApplication.Controllers
 {
@@ -24,7 +21,7 @@ namespace SurveyApplication.Controllers
         public ActionResult<string> Get(int id)
         {
             var list = repository.Get();
-            var result = CsvSerializer.SerializeToCsv<FormResponse>(list);
+            var result = CsvSerializer.SerializeToCsv<FormResponse>(list.Where(s => s.SurveyId == id).ToList());
             return result;
         }
 

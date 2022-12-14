@@ -11,11 +11,11 @@ export class ListSurveys extends Component {
             surveys: [],
             surveysToExport: ""
         };
-    }
+     }
    
     componentDidMount() {
         this.getData();
-        this.getDataToExport();
+       
        }
 
     render() {
@@ -30,14 +30,17 @@ export class ListSurveys extends Component {
         this.setState({ surveys: data});
     }
 
-    async getDataToExport() {
-        const response = await fetch('api/response/12');
+    async getDataToExport(id) {
+        const response = await fetch('api/response/' + id);
         const data = await response.text();
         this.setState({ surveysToExport: data });
     }
 
 
-    handleClick = () => {
+    handleClick = (event) => {
+
+        this.getDataToExport(event.target.id);
+       
         const fileData = encodeURIComponent(this.state.surveysToExport);
         const link = document.createElement('a');
         link.setAttribute('href', 'data:text/csv;charset=utf-8,' + fileData);
@@ -61,7 +64,7 @@ export class ListSurveys extends Component {
                             <td>{survey.name}</td>
                             <td><Link to="/surveydefinition">Survey details</Link></td>
                             <td>
-                                <button onClick={this.handleClick}>Export</button>
+                                <button id={survey.id} onClick={this.handleClick}>Export</button>
                             </td>
                         </tr>
                     ))}
