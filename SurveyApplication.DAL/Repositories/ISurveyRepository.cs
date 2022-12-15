@@ -1,5 +1,4 @@
-﻿
-namespace SurveyApplication.DAL.Repositories
+﻿namespace SurveyApplication.DAL.Repositories
 {
     public interface ISurveyRepository
     {

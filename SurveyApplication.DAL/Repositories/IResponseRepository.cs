@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SurveyApplication.DAL.Models;
 
 namespace SurveyApplication.DAL.Repositories

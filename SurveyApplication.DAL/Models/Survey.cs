@@ -1,6 +1,7 @@
-﻿
-namespace SurveyApplication.DAL.Models
+﻿namespace SurveyApplication.DAL.Models
 {
+
+    //Never used, as the task does not require someone to create any new surveys.
     public class Survey
     {
         public int Id { get; set; }

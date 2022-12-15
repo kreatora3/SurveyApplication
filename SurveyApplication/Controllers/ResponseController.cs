@@ -22,7 +22,7 @@ namespace SurveyApplication.Controllers
         {
             var list = repository.Get();
             var result = CsvSerializer.SerializeToCsv<FormResponse>(list.Where(s => s.SurveyId == id).ToList());
-            return result;
+            return Ok(result);
         }
 
         [HttpPost("{id:int}")]

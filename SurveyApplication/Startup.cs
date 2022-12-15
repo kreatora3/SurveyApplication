@@ -26,7 +26,6 @@ namespace SurveyApplication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllersWithViews().AddNewtonsoftJson();
             services.AddScoped<ISurveyRepository, SurveyRepository>();
             services.AddScoped<IResponseRepository, ResponseRepository>();
@@ -48,14 +47,11 @@ namespace SurveyApplication
                 c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
                 $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
             });
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-
         {
             if (env.IsDevelopment())
             {
@@ -80,8 +76,6 @@ namespace SurveyApplication
                 // To serve SwaggerUI at application's root page, set the RoutePrefix property to an empty string.
                 //c.RoutePrefix = string.Empty;
             });
-
-
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

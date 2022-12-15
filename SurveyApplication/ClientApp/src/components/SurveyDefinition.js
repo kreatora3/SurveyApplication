@@ -9,10 +9,11 @@ export class SurveyDefinition extends Component {
             definitions: [],
         };
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.getData = this.getData.bind(this);
     }
 
     componentDidMount() {
-        this.getData();
+        this.getData(this.props.location.state.surveyId);
     }
 
     render() {
@@ -41,14 +42,12 @@ export class SurveyDefinition extends Component {
             })
         };
 
-        // Make a POST request to the API with the formdata
         fetch('api/response/' + event.target.id, options);
         this.props.history.push('/');
     };
 
-    async getData() {
-        const someID = 1;
-        const response =  await fetch('api/surveys/' + someID);
+    async getData(id) {
+        const response =  await fetch('api/surveys/' + id);
         const data =  await response.json();
         this.setState({ definitions: data });
     }
